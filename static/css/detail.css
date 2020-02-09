@@ -1,0 +1,39 @@
+.profile-p{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.liker{
+    margin-left: 5px;
+    font-size: 11px;
+    color: gray;
+}
+#users-liked{
+    cursor: pointer;
+}
+.likers{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    /* right: 100px; */
+    /* top: 50px; */
+    z-index: 1;
+}
+.show{
+    display: block;
+}
+.button{
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    padding: 5px;
+    margin: 0;
+    height: 40px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}

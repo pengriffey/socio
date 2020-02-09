@@ -1,0 +1,49 @@
+.header{
+    padding: 0px 100px;
+}
+
+.content{
+    padding: 20px 100px;
+}
+
+.button{
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    padding: 5px;
+    margin: 0;
+    height: 40px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+#action-list{
+    display: inline-block;
+    width: 500px;
+}
+.action{
+    margin: 50px;
+}
+.post-photo{
+    width: 500px;
+}
+.username-link{
+    text-decoration: none;
+    color: #222831;
+    font-weight: bolder;
+}
+.date-created{
+    font-size: 0.8rem;
+    color: gray;
+}
+.like-div{
+    margin: 20px 0 20px;
+
+}
+.like-button{
+    color: ivory;
+    /* background-color: #1d4d4f; */
+    padding: 5px 10px;
+    text-decoration: none;
+}

@@ -1,0 +1,22 @@
+{% load static %}
+{% for image in images %}
+{% if image.image %}    
+<div class="img-container">
+    <div class="image">
+        <a href="{{ image.get_absolute_url }}">
+            <img src="{{ image.image.url }}" alt="" class="post-photo">
+        </a>
+    </div>
+    <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in image.users_liked.all %}un{% endif %}like"
+       id="like-button-{{image.id}}" class="like-button button">
+        {% if request.user not in image.users_liked.all %}Like{% else %}Unlike{% endif %}
+    </a>
+    <div class="info">
+        <div class="likes">
+            <span id="image-{{image.id}}" class="total">{{ image.total_likes }} like{{ image.total_likes|pluralize }}</span>                
+        </div>
+        <span class="description">{{ image.description}} </span>
+    </div>
+</div>
+    {% endif %}
+{% endfor %}

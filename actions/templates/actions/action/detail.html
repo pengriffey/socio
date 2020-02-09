@@ -1,0 +1,46 @@
+{% for action in actions %}
+{% with user=action.user profile=action.user.profile %}
+<div class="action">
+    <div class=""> 
+        {% if profile.photo %}
+            <a href="{{user.get_absolute_url}}">
+                <img src="{{profile.photo.url}}" alt="{{user.get_full_name}}" class="profile-pik">
+            </a>
+        {% endif%}
+        <a href="{{user.get_absolute_url}}" class="username-link">{{ user.first_name }}</a>
+    </div>
+
+    <div class="images">
+        {% if action.target %}
+            {% with target=action.target %}
+                {% if target.image %}
+                    <a href="{{ target.get_absolute_url }}">
+                    <img src="{{ target.image.url }}" alt="" class="post-photo">
+                    </a>
+                {% endif %}
+            {% endwith %}
+        {% endif %}
+    </div>
+    <div class="like-div">
+        {% with image=action.target %}
+            <a href="#" id="like-button-{{image.id}}" class="like-button button" data-id="{{image.id}}" data-action="{% if request.user in image.users_liked.all %} un{%endif%}like ">{% if request.user in image.users_liked.all %} unlike {%else%} like {%endif%}</a>
+        {% endwith %}
+    </div>
+    <div class="info">
+        {% with target=action.target %}
+            <span class="likes" id="likes-{{target.id}}">{{target.users_liked.count}} like{{target.users_liked.count|pluralize}}</span><br>
+            <a href="{{user.get_absolute_url}}" class="username-link">
+                {{ user.first_name }}
+            </a>         
+            <span class="description">{{ target.description }}</span><br>
+            <span class="date-created">{{action.created|timesince}} ago</span>
+        {% endwith%}      
+    </div>
+</div>
+{% endwith %}
+{% endfor %}
+{% block domready %}
+<script>
+
+</script>
+{% endblock %}

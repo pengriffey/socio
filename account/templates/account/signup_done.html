@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock%}
+
+{% block content %}
+<div>
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+<h1>You've been registered successfully</h1>
+<p>Welcome {{user.first_name}}, proceed to <a href="{% url 'login' %}">login</a> </p>
+
+{% endblock %}

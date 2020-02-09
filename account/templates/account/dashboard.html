@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static '/css/dashboard.css' %}">
+    {% endblock %}
+
+{% block title %} Dashboard {% endblock%}
+
+{% block content %}
+    {% if messages %}
+        <div>
+            <ul>
+                {% for message in messages %}
+                    <li>{{message}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'images:create' %}">add post</a>
+    <div id="action-list">
+       {% include "actions/action/detail.html" %}
+    </div>
+{% endblock %}
+{% block domready %}
+<script>
+    // ajax unlimited scroll functionalty
+    let page = 1;
+    let empty_page = false;
+    let block_request = false;
+
+    $(window).scroll(function () {
+        let margin = $(document).height() - $(window).height() - 200;
+        if ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+            block_request = true;
+            page += 1;
+            $.get('?page=' + page, function (data) {
+                if (data == '') {
+                    empty_page = true;
+                }
+                else {
+                    block_request = false;
+                    $('#action-list').append(data);
+                }
+            });
+        }
+    });
+
+    // for image detail.html like functionality
+     $('#action-list').on('click','.like-button',function (e) {
+            e.preventDefault();
+            $.get("{% url 'images:like' %}",
+                {
+                    id: $(this).data('id'),
+                    action: $(this).data('action')
+                },
+                function (data) {
+                    if (data['status'] == 'ok') {
+                        let previous_action = $('#like-button-' + data['image-id']).data('action')
+
+                        // toggle data-action
+                        $('#like-button-' + data['image-id']).data('action', previous_action == 'like' ? 'unlike' : 'like');
+                        //toggle link text
+                        $('#like-button-' + data['image-id']).text(previous_action == 'like' ? 'Unlike' : 'Like');
+
+                        // update total likes
+                        // let previous_likes = parseInt($('span.total').text());
+                        $('#likes-' + data['image-id']).text(data['total-likes'] > 1 ? data['total-likes'] + " likes" : data['total-likes'] + " like");
+                    }
+                });
+        });
+</script>
+
+{% endblock %}

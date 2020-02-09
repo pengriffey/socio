@@ -1,0 +1,118 @@
+html {
+    box-sizing: border-box;
+}
+*, *::before, *::after{
+  box-sizing: inherit;
+}
+body {
+    margin: 0;
+    background-color: #e5dfdf;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.header{
+    background-color: #1d4d4f;
+    color: white;
+    padding: 0px 200px;
+}
+
+#logo{
+    float: left;
+    font-size: 2.1rem;
+    padding: 5px 20px;
+    margin-right: 20px;
+    color: #e5dfdf9f;
+}
+
+.menu {
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.menu li{
+    float: left;
+}
+li a, li a:active{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+}
+
+.selected{
+   background-color: #29a19c;
+}
+.user{
+    float: right;
+    margin: 10px;
+}
+.user a{
+    color: #ffa372;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.profile-pik{
+    float: left;
+    /* display: inline-block; */
+    width: 40x;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.dropdown {
+    margin-left: 10px;
+    float: right;
+    /* display: inline-block; */
+
+}
+#dropbtn{
+    cursor: pointer;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  right: 100px;
+  top: 50px;
+  z-index: 1;
+}
+.dropdown-content a {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #222831;
+    /* text-align: center; */
+    padding: 14px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #2228315b;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+
+.content{
+    padding: 20px 200px;
+}
+a:visited{
+    color: black;
+}
+
+
+
+
+
+

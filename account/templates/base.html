@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static '/css/account_base.css' %}">
+    <link rel="stylesheet" href="{% static '/css/registration.css' %}">
+
+    {% block css %}<link rel="stylesheet" href="#">{% endblock %}
+
+    <title>{% block title %}soCio{% endblock %}</title>
+</head>
+<body>
+        <div class="header group">
+            <span id="logo">soCio</span>  
+            {% if request.user.is_authenticated %}
+                <ul class="menu">
+                <li {% if section == 'dashboard' %} class="selected" {% endif %}>
+                    <a href="{% url 'dashboard' %}">dashboard</a>
+                </li>
+                <li {% if section == 'images' %} class="selected" {% endif %}>
+                    <a href="{% url 'images:list' %}">images</a>
+                </li>
+                <li {% if section == 'people' %} class="selected" {% endif %}>
+                    <a href="{% url 'user_list' %}">people</a>
+                </li>
+            </ul>
+            {% endif %}
+
+            <span class="user">
+                {% if request.user.is_authenticated %}
+                {% if request.user.profile.photo %}<img src="{{request.user.profile.photo.url}}" alt="profile-image" class="profile-pik">{% endif %}
+                {{request.user.first_name}}
+                <div class="dropdown">
+                <img id="dropbtn" src="{% static 'img/arrows.png' %}" alt="">
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="{% url 'edit_profile' %}">Edit profile</a>
+                    <a href="{% url 'password_change' %}">change password</a>
+                    <a href="{% url 'password_reset' %}">Reset password</a>
+                    <a href="{% url 'logout' %}">logout</a>
+                </div>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}">login</a>
+                {% endif %}
+            </span>
+        </div>
+        <div class="content">
+            {% block content%}
+            {% endblock %}
+        </div>
+        <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <!-- <script src="{% static 'ajax_csrf_protection.js' %}"></script> -->
+        <script src="{% static 'js/base.js' %}"></script>
+        
+            {% block domready %}
+            {% endblock %}
+        
+
+</body>
+</html>

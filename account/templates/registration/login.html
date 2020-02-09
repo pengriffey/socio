@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Login {% endblock%}
+
+{% block content %}
+    
+    {% if form.errors %}
+    <p>
+        your username or password is incorrect!
+    </p>
+    {% else %}
+    {% endif %}
+    <div class="login-form">
+        <img src="{% static 'img/prfvector.png' %}" alt="avatar">
+        <h1>Login here</h1>
+        <form action="{% url 'login' %}" method="POST">
+            {{form.as_p}}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{next}}">
+            <input type="submit" value="Log-in"> don't have an account? <a href="{% url 'sign_up' %}">signup</a> 
+            <p>forgotten password?<a href="{% url 'password_reset' %}"> reset</a></p>
+        </form>
+    </div>
+    <div class="social-login">
+        <h2>sign-in options</h2>
+
+                <a href="{% url 'social:begin' 'facebook' %}"><img class="facebook" src="{% static 'img/facebook.jpg' %}" alt=""></a>
+                <a href="{% url 'social:begin' 'twitter' %}"><img class="twitter" src="{% static 'img/twitter.jpg' %}" alt=""></a>
+                <a href="{% url 'social:begin' 'google-oauth2' %}"><img src="{% static 'img/googleplus.png' %}" alt=""></a>
+
+    </div>
+{% endblock %}

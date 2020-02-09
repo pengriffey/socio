@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/image_list_ajax.css' %}">
+{% endblock %}
+{% block title %} images posted {% endblock %}
+
+{% block content %}
+<h2 class="image-user">
+    <a href="{{request.user.get_absolute_url}}">
+        <img src="{% if request.user.profile.photo %}{{request.user.profile.photo.url}}{% else %}{% static 'img/prfvector.png' %}{% endif %}" alt="" class="profile-pik-bigger">
+    <span>{{request.user}}</span>
+    </a>
+</h2>
+<div class="image-list" id="image-list">
+    {% include 'images/image/list_ajax.html' %}
+</div>
+{% endblock %}
+
+{% block domready %}
+<script>
+    let page = 1;
+    let empty_page = false;
+    let block_request = false;
+
+    $(window).scroll(function(){
+    let margin = $(document).height()- $(window).height()-200;
+    if ($(window).scrollTop()> margin && empty_page == false && block_request == false){
+    block_request = true;
+    page +=1;
+    $.get('?page='+ page,function(data){
+    if(data ==''){
+    empty_page = true;
+    }
+    else {
+    block_request = false;
+    $('#image-list').append(data);
+    }
+    });
+    }
+    });
+
+    // for image detail.html like functionality
+        $('#image-list').on('click','.like-button',function (e) {
+            e.preventDefault();
+            $.get("{% url 'images:like' %}",
+                {
+                    id: $(this).data('id'),
+                    action: $(this).data('action')
+                },
+                function (data) {
+                    if (data['status'] == 'ok') {
+                        let previous_action = $('#like-button-'+data['image-id']).data('action')
+
+                        // toggle data-action
+                        $('#like-button-'+data['image-id']).data('action', previous_action == 'like' ? 'unlike' : 'like');
+                        //toggle link text
+                        $('#like-button-'+data['image-id']).text(previous_action == 'like' ? 'Unlike' : 'Like');
+
+                        // update total likes
+                        // let previous_likes = parseInt($('span.total').text());
+                        $('#image-'+data['image-id']).text(data['total-likes']>1? data['total-likes']+" likes": data['total-likes']+" like");
+                    }
+                });
+        });
+    
+
+</script>
+{% endblock %}
+
+    
